@@ -1,0 +1,213 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* Enable class-based dark mode for Tailwind v4 */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+ * Notion-style warm color system.
+ * Redefining the `neutral` scale to Notion's warm grays so every existing
+ * `neutral-*` class across the app inherits the warm palette automatically.
+ */
+@theme {
+  --color-neutral-50: #f7f6f3;
+  --color-neutral-100: #f1f0ed;
+  --color-neutral-200: #e9e9e7;
+  --color-neutral-300: #dededd;
+  --color-neutral-400: #b3b2af;
+  --color-neutral-500: #9b9a97;
+  --color-neutral-600: #6f6e69;
+  --color-neutral-700: #4a4945;
+  --color-neutral-800: #3d3c39;
+  --color-neutral-900: #37352f;
+  --color-neutral-950: #2f2e2c;
+
+  /* Notion blue accent */
+  --color-notion-blue: #337ea9;
+  --color-notion-blue-hover: #0b6bcb;
+  --color-notion-blue-bg: #eef2fb;
+  --color-notion-blue-bg-hover: #e3eaf9;
+
+  /* Notion warm accents */
+  --color-notion-green: #4f9a6e;
+  --color-notion-green-bg: #edf3ee;
+  --color-notion-amber: #d9730d;
+  --color-notion-amber-bg: #fbecdd;
+  --color-notion-red: #e03e3e;
+  --color-notion-red-bg: #fbeaea;
+  --color-notion-purple: #9065b0;
+  --color-notion-purple-bg: #f3ecf7;
+
+  --font-sans:
+    "Inter", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Helvetica, "Apple Color Emoji", Arial, sans-serif;
+  --font-serif:
+    "Inter", Georgia, "Times New Roman", ui-serif, serif;
+}
+
+:root {
+  --ls-bg: #ffffff;
+  --ls-sidebar: #f7f6f3;
+  --ls-border: #e9e9e7;
+  --ls-text: #37352f;
+  --ls-text-muted: #6f6e69;
+}
+
+/*
+ * Dark mode: invert the neutral palette so all neutral-* utilities
+ * automatically adapt. neutral-900 (was dark text) becomes light,
+ * neutral-100 (was light bg) becomes dark, borders become dark, etc.
+ */
+.dark {
+  --color-neutral-50: #191917;
+  --color-neutral-100: #1f1e1c;
+  --color-neutral-200: #2f2e2c;
+  --color-neutral-300: #3d3c39;
+  --color-neutral-400: #5c5b57;
+  --color-neutral-500: #7a7975;
+  --color-neutral-600: #9b9a97;
+  --color-neutral-700: #b3b2af;
+  --color-neutral-800: #c7c6c3;
+  --color-neutral-900: #e9e9e7;
+  --color-neutral-950: #f7f6f3;
+
+  --ls-bg: #191917;
+  --ls-sidebar: #141413;
+  --ls-border: #2f2e2c;
+  --ls-text: #e9e9e7;
+  --ls-text-muted: #9b9a97;
+
+  /* Override bg-white to dark surface in dark mode */
+  --color-white: #1f1e1c;
+
+  /* Accent backgrounds — darker for dark mode */
+  --color-notion-blue-bg: #1c2a3a;
+  --color-notion-green-bg: #1a2e22;
+  --color-notion-amber-bg: #33240f;
+  --color-notion-red-bg: #2e1818;
+  --color-notion-purple-bg: #2a1f33;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: var(--ls-text);
+  background: var(--ls-bg);
+  font-size: 15px;
+  line-height: 1.5;
+  letter-spacing: -0.003em;
+}
+
+/* Notion headings — slightly tighter, use serif feel via weight */
+h1,
+h2,
+h3 {
+  letter-spacing: -0.01em;
+  color: var(--ls-text);
+}
+
+/* Refined warm scrollbars */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #3d3c39 transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #3d3c39;
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: #5c5b57;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Notion-style focus ring — soft blue, not harsh */
+*:focus-visible {
+  outline: none;
+}
+
+/* Remove number input spinners */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Smooth transitions on interactive elements by default */
+button,
+a,
+input,
+textarea,
+select {
+  transition:
+    background-color 0.12s ease,
+    border-color 0.12s ease,
+    color 0.12s ease,
+    box-shadow 0.12s ease,
+    transform 0.12s ease;
+}
+
+/* Notion page-title editable look */
+.notion-title {
+  font-weight: 700;
+  font-size: 2rem;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  color: var(--ls-text);
+}
+
+@media (max-width: 768px) {
+  .notion-title {
+    font-size: 1.625rem;
+  }
+}
+
+/* Subtle text selection like Notion (blue-tinted) */
+::selection {
+  background: #b8d4f0;
+  color: inherit;
+}
+
+.dark ::selection {
+  background: #2a4a6a;
+  color: #e9e9e7;
+}
+
+/* Color scheme transition — smooth theme switch */
+html {
+  transition: background-color 0.2s ease;
+}
+
+/* Reduce motion: honor user preference globally for transitions */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
