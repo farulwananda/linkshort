@@ -1,33 +1,33 @@
 # Linkshort
 
-Linkshort adalah prototype personal shortlink manager dengan konsep workspace seperti Notion dan sentuhan polished SaaS. Project ini dibuat untuk mengelola shortlink pribadi di domain sendiri, dimulai dari login mock, dashboard, manajemen link, tags, analytics, dan pengaturan domain.
+Linkshort is a personal shortlink manager prototype with a Notion-like workspace experience and polished SaaS details. It is designed for managing personal shortlinks on a custom domain, starting with a mock login flow, dashboard, link management, tags, analytics, and domain settings.
 
-Project ini juga menjadi bahan uji coba model AI **GLM 5.2** untuk melihat kemampuan model dalam membangun frontend app modern, menyusun struktur project, memperbaiki bug UI, dan mengembangkan fitur bertahap.
+This project is also an experiment using the **GLM 5.2 AI model** to evaluate how well the model can help build a modern frontend app, structure a project, fix UI issues, and evolve features through iterative feedback.
 
-## Status Project
+## Project Status
 
-Saat ini Linkshort adalah **frontend-only prototype**. Data belum disimpan ke database/backend, melainkan ke `localStorage` browser.
+Linkshort is currently a **frontend-only prototype**. There is no backend or database yet. Data is persisted in the browser with `localStorage`.
 
-Yang sudah dikerjakan:
+Completed work:
 
-- Scaffold awal memakai TanStack CLI.
-- Halaman login mock.
-- Protected dashboard dengan session sederhana via `localStorage`.
-- Layout workspace ala Notion: sidebar, topbar, page header, dan area konten.
-- CRUD shortlink lokal.
-- Search, filter, sort, table view, list/card view.
-- Archive, restore, activate, deactivate, duplicate, dan delete link.
-- Bulk actions untuk beberapa link.
-- Import/export data JSON dan CSV.
-- Tags page untuk melihat, rename, dan delete tag.
-- Analytics page dengan metric cards, top links, top tags, insights, dan click trend mock.
-- Settings page untuk domain display dan theme mode.
-- Dark mode dengan class-based Tailwind variant.
-- Smooth animation memakai Motion.
-- Reserved route `/link/$slug` untuk future redirect.
-- Fix logout agar session benar-benar terhapus sebelum kembali ke login.
-- Fix contrast button di dark mode.
-- Fix click trend agar tidak tampil datar semua.
+- Initial scaffold with the TanStack CLI.
+- Mock login page.
+- Protected dashboard with a simple `localStorage` session.
+- Notion-like workspace layout with sidebar, topbar, page header, and content area.
+- Local shortlink CRUD.
+- Search, filter, sort, table view, and list/card view.
+- Archive, restore, activate, deactivate, duplicate, and delete link actions.
+- Bulk actions for selected links.
+- JSON and CSV import/export.
+- Tags page for viewing, renaming, and deleting tags.
+- Analytics page with metric cards, top links, top tags, insights, and mock click trend.
+- Settings page for display domain and theme mode.
+- Dark mode using a class-based Tailwind variant.
+- Smooth animations with Motion.
+- Reserved `/link/$slug` route for a future redirect implementation.
+- Logout fix so the session is cleared before returning to login.
+- Dark mode button contrast fix.
+- Click trend fix so the chart no longer appears completely flat.
 
 ## Tech Stack
 
@@ -37,12 +37,12 @@ Yang sudah dikerjakan:
 - Vite
 - TypeScript
 - Tailwind CSS v4
-- Motion untuk animasi
-- Lucide React untuk icon
-- Vitest untuk test runner
-- npm dengan `package-lock.json`
+- Motion for animation
+- Lucide React for icons
+- Vitest as the test runner
+- npm with `package-lock.json`
 
-## Struktur Project
+## Project Structure
 
 ```text
 src/
@@ -80,17 +80,17 @@ src/
       $slug.tsx
 ```
 
-File penting:
+Important files:
 
-- `src/routes/__root.tsx`: root document shell dan theme no-flash script.
-- `src/routes/app.tsx`: app layout dan route guard dashboard.
+- `src/routes/__root.tsx`: root document shell and no-flash theme script.
+- `src/routes/app.tsx`: app layout and dashboard route guard.
 - `src/hooks/useSession.ts`: mock login/logout state.
-- `src/hooks/useLinks.ts`: CRUD shortlink di localStorage.
+- `src/hooks/useLinks.ts`: shortlink CRUD backed by localStorage.
 - `src/lib/storage.ts`: localStorage adapter.
-- `src/lib/analytics.ts`: summary, insight, tags, dan click trend mock.
-- `src/styles.css`: Tailwind import, Notion-like color tokens, dan dark mode.
+- `src/lib/analytics.ts`: summaries, insights, tags, and mock click trend.
+- `src/styles.css`: Tailwind import, Notion-like color tokens, and dark mode.
 
-## Cara Menjalankan
+## Running the Project
 
 Install dependencies:
 
@@ -98,83 +98,83 @@ Install dependencies:
 npm install
 ```
 
-Jalankan development server:
+Start the development server:
 
 ```bash
 npm run dev
 ```
 
-Default dev server:
+Default development URL:
 
 ```text
 http://localhost:3000
 ```
 
-Build production:
+Build for production:
 
 ```bash
 npm run build
 ```
 
-Preview production build:
+Preview the production build:
 
 ```bash
 npm run preview
 ```
 
-Run test:
+Run tests:
 
 ```bash
 npm run test
 ```
 
-Regenerate TanStack route tree:
+Regenerate the TanStack route tree:
 
 ```bash
 npm run generate-routes
 ```
 
-## Penyimpanan Data
+## Data Storage
 
-Karena masih prototype frontend-only, data disimpan di browser:
+Because this is still a frontend-only prototype, data is stored in the browser:
 
-- `linkshort.session`: status login mock.
-- `linkshort.links`: daftar shortlink.
-- `linkshort.settings`: domain dan theme setting.
-- `linkshort.analyticsSeed`: seed deterministic untuk click trend mock.
-- `linkshort.ui`: preferensi UI ringan.
+- `linkshort.session`: mock login state.
+- `linkshort.links`: shortlink list.
+- `linkshort.settings`: domain and theme settings.
+- `linkshort.analyticsSeed`: deterministic seed for the mock click trend.
+- `linkshort.ui`: lightweight UI preferences.
 
-Logout hanya menghapus session. Data links dan settings tetap dipertahankan.
+Logging out only clears the session. Links and settings are intentionally preserved.
 
-## Catatan Routing
+## Routing Notes
 
-- `/login`: halaman login mock.
-- `/app`: dashboard link manager.
+- `/login`: mock login page.
+- `/app`: link manager dashboard.
 - `/app/analytics`: analytics dashboard.
 - `/app/tags`: tag management.
 - `/app/archive`: archived links.
-- `/app/settings`: domain dan theme settings.
-- `/link/$slug`: reserved route untuk shortlink redirect di versi berikutnya.
+- `/app/settings`: domain and theme settings.
+- `/link/$slug`: reserved route for a future shortlink redirect.
 
-Untuk saat ini `/link/$slug` belum melakukan redirect production. Route ini hanya menampilkan placeholder dan detail link jika slug ditemukan di localStorage.
+For now, `/link/$slug` does not perform a production redirect. It only displays a placeholder and link details when a matching slug exists in localStorage.
 
-## Rencana Berikutnya
+## Next Steps
 
-- Tambahkan backend dan database sungguhan.
-- Tambahkan auth single-admin yang lebih aman.
-- Jadikan `/link/$slug` benar-benar melakukan redirect.
-- Tambahkan real click tracking.
-- Tambahkan custom domain deployment flow.
-- Tambahkan QR code untuk setiap shortlink.
-- Tambahkan validasi import/export yang lebih ketat.
-- Tambahkan test komponen dan test flow utama.
+- Add a real backend and database.
+- Add a safer single-admin authentication flow.
+- Make `/link/$slug` perform real redirects.
+- Add real click tracking.
+- Add a custom-domain deployment flow.
+- Add QR codes for shortlinks.
+- Improve import/export validation.
+- Add component tests and main flow tests.
 
-## Catatan Eksperimen AI
+## AI Experiment Note
 
-Project ini dikerjakan sebagai uji coba model AI **GLM 5.2** dalam konteks pengembangan frontend modern. Fokus eksperimen:
+This project is being developed as an experiment with the **GLM 5.2 AI model** in a modern frontend development context. The experiment focuses on:
 
-- Membuat desain workspace seperti Notion.
-- Mengembangkan fitur bertahap berdasarkan feedback.
-- Menjaga struktur React/TanStack tetap rapi.
-- Memperbaiki bug UI seperti dark mode contrast dan chart trend.
-- Mendokumentasikan progress project secara jelas.
+- Creating a Notion-like workspace design.
+- Evolving features through iterative feedback.
+- Keeping the React/TanStack project structure clean.
+- Fixing UI issues such as dark mode contrast and chart trend rendering.
+- Documenting project progress clearly.
